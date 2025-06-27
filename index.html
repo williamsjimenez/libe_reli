@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política Pública de Participación Ciudadana - Líderes Religiosos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #27403d;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .slide:not(:last-child) {
+            border-bottom: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #d88f2e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .slide-container {
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 80px;
+            z-index: 1;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.9);
+            color: #27403d;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* Slide de Introducción */
+        .intro-slide {
+            background: #27403d;
+            color: white;
+            text-align: center;
+        }
+
+        .intro-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .intro-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .intro-highlight {
+            font-size: 2.2rem;
+            background: rgba(255,255,255,0.95);
+            color: #27403d;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border: 3px solid #d88f2e;
+            font-weight: bold;
+        }
+
+        /* Slides de Contenido */
+        .content-slide {
+            background: #f1e4db;
+            color: #27403d;
+        }
+
+        .title {
+            text-align: center;
+            color: #27403d;
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #d88f2e;
+            border-radius: 2px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #4a4a48;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(39, 64, 61, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #d88f2e;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(39, 64, 61, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            background: #27403d;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #27403d;
+        }
+
+        .card-content {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-content li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(39, 64, 61, 0.1);
+        }
+
+        .card-content li:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-box {
+            background: #d88f2e;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .highlight-box p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        /* QR y Enlaces */
+        .qr-card {
+            background: #4a4a48;
+            color: white;
+            text-align: center;
+        }
+
+        .qr-image {
+            width: 180px;
+            height: 180px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 4px solid #d88f2e;
+            margin: 1rem auto;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Slide Final */
+        .final-slide {
+            background: #2b2b28;
+            color: white;
+            text-align: center;
+        }
+
+        .final-logo {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .final-logo img {
+            height: 100px;
+            width: auto;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #d88f2e;
+        }
+
+        .final-title {
+            font-size: 3rem;
+            color: #d88f2e;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .final-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .final-highlight {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem auto;
+            max-width: 600px;
+            border: 2px solid rgba(216, 143, 46, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .intro-title {
+                font-size: 2.5rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .intro-highlight {
+                font-size: 1.5rem;
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Introducción -->
+    <div class="slide intro-slide">
+        <div class="header">
+            <img src="./logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="./logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="intro-title">LÍDERES RELIGIOSOS</h1>
+            <p class="intro-subtitle">Pastores espirituales y constructores de paz</p>
+            <div class="intro-highlight">
+                ⛪ Construyamos juntos la Política Pública de Participación Ciudadana de Pereira ⛪
+            </div>
+        </div>
+        <div class="slide-number">Inicio</div>
+    </div>
+
+    <!-- Slide 2: Su Participación -->
+    <div class="slide content-slide">
+        <div class="header">
+            <img src="./logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="./logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">USTEDES YA PRACTICAN LA PARTICIPACIÓN CIUDADANA</h1>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">⛪</div>
+                        <h2 class="card-title">Su Labor Pastoral y Social</h2>
+                    </div>
+                    <div class="card-content">
+                        <p style="margin-bottom: 1rem; font-weight: 600;">Como líderes religiosos, ustedes ya ejercen participación:</p>
+                        <ul>
+                            <li style="color: black;">🙏 <strong>Orientan espiritualmente</strong> a las comunidades</li>
+                            <li style="color: black;">🤝 <strong>Median conflictos</strong> y promueven la reconciliación</li>
+                            <li style="color: black;"❤️ <strong>Desarrollan programas sociales</strong> para los más necesitados</li>
+                            <li style="color: black;">🏘️ <strong>Articulan redes</strong> de apoyo comunitario</li>
+                            <li style="color: black;">🕊️ <strong>Promueven valores</strong> de paz y convivencia</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" style="background: #4a4a48; color: white;">
+                    <div class="card-header">
+                        <div class="icon" style="background: #d88f2e;">🎯</div>
+                        <h2 class="card-title" style="color: white;">Lo que Necesita la Comunidad</h2>
+                    </div>
+                    <div class="card-content" style="color: rgba(255,255,255,0.9);">
+                        <p style="margin-bottom: 1rem; font-weight: 600;">Una <strong>política pública</strong> que facilite:</p>
+                        <ul>
+                            <li>🚀 <strong>Diálogo interreligioso</strong> institucional</li>
+                            <li>📋 <strong>Canales directos</strong> con autoridades locales</li>
+                            <li>⚡ <strong>Participación activa</strong> en decisiones sociales</li>
+                            <li>🏛️ <strong>Reconocimiento oficial</strong> del aporte religioso</li>
+                            <li>💰 <strong>Apoyo a programas</strong> de impacto social</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>🔑 OPORTUNIDAD PARA LAS PRÁCTICAS RELIGIOSAS</h3>
+                <p>Esta política va a <strong>institucionalizar</strong> la participación de los líderes religiosos.<br>
+                Su voz tendrá <strong>canales oficiales</strong> en la construcción de ciudad.</p>
+            </div>
+        </div>
+        <div class="slide-number">1 / 3</div>
+    </div>
+
+    <!-- Slide 3: Qué es una Política Pública -->
+    <div class="slide content-slide">
+        <div class="header">
+            <img src="./logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="./logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">¿QUÉ ES UNA POLÍTICA PÚBLICA?</h1>
+            
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; color: #27403d; margin-bottom: 1rem;">LA METÁFORA DE LA COMUNIDAD</h2>
+                <p style="font-size: 1.2rem; color: #666; font-style: italic;">Su comunidad tiene organización pastoral... La ciudad también necesita organización ciudadana</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="card" style="background: #27403d; color: white;">
+                    <div class="card-header">
+                        <div class="icon" style="background: #d88f2e;">⛪</div>
+                        <h2 class="card-title" style="color: white;">SU COMUNIDAD TIENE:</h2>
+                    </div>
+                    <div class="card-content" style="color: rgba(255,255,255,0.9);">
+                        <ul>
+                            <li>📋 <strong>Gobierno eclesiástico</strong> (pastores, ancianos, diáconos)</li>
+                            <li>🎉 <strong>Ministerios</strong> (evangelismo, educación, acción social)</li>
+                            <li>💰 <strong>Recursos</strong> (diezmos, ofrendas, proyectos)</li>
+                            <li>🏢 <strong>Espacios</strong> (templo, salones, áreas de servicio)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="background: #f1e4db;">
+                    <div class="card-header">
+                        <div class="icon" style="background: #27403d;">🏛️</div>
+                        <h2 class="card-title">LA POLÍTICA PÚBLICA SERÁ:</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li>📋 <strong>Gobierno participativo</strong> incluyendo líderes religiosos</li>
+                            <li>🎉 <strong>Programas ciudadanos</strong> con enfoque espiritual</li>
+                            <li>💰 <strong>Presupuesto municipal</strong> para trabajo interreligioso</li>
+                            <li>🏢 <strong>Espacios de diálogo</strong> fe-gobierno-comunidad</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>💡 BENEFICIO DIRECTO</h3>
+                <p>Así como su comunidad está organizada para pastorear,<br>
+                <strong>Pereira estará organizada para escuchar</strong><br>
+                la voz de los líderes religiosos.</p>
+            </div>
+        </div>
+        <div class="slide-number">2 / 3</div>
+    </div>
+
+    <!-- Slide 4: Participación + QR -->
+    <div class="slide content-slide">
+        <div class="header">
+            <img src="./logo_alcaldia_pereira.png" alt="Alcaldía de Pereira" class="logo">
+            <img src="./logo_pereira_participa.png" alt="Pereira Participa" class="logo">
+        </div>
+        <div class="slide-container">
+            <h1 class="title">SU VOZ ES FUNDAMENTAL</h1>
+            
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; color: #27403d; margin-bottom: 1rem;">
+                    Su experiencia pastoral es <strong style="color: #d88f2e;">INVALUABLE</strong>
+                </h2>
+                <p style="font-size: 1.2rem; color: #666;">Ustedes conocen las necesidades espirituales y sociales de las comunidades</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon">🎯</div>
+                        <h2 class="card-title">Lo que Ustedes Aportan</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li>✅ <strong>Experiencia</strong> en acompañamiento pastoral</li>
+                            <li>📊 <strong>Conocimiento</strong> de problemáticas sociales reales</li>
+                            <li>🚧 <strong>Identificación</strong> de necesidades espirituales</li>
+                            <li>💡 <strong>Propuestas</strong> basadas en valores cristianos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card qr-card">
+                    <div class="card-header">
+                        <div class="icon" style="background: rgba(255,255,255,0.2);">📱</div>
+                        <h2 class="card-title" style="color: white;">¡Participen en la Encuesta!</h2>
+                    </div>
+                    <div class="card-content" style="color: white; text-align: center;">
+                        <p style="font-size: 1.2rem; margin-bottom: 1rem; color: white; font-weight: bold;">
+                            📋 Formulario para Líderes Religiosos
+                        </p>
+                        <a href="https://es.surveymonkey.com/r/PPPC1largo" target="_blank">
+                            <img src="./PPPC_lar.png" alt="Código QR" class="qr-image">
+                        </a>
+                        <p style="margin: 1rem 0; color: rgba(255,255,255,0.9);">
+                            <strong>URL directa:</strong><br>
+                            <a href="https://es.surveymonkey.com/r/PPPC1largo" target="_blank" style="color: #d88f2e;">
+                                es.surveymonkey.com/r/PPPC1largo
+                            </a>
+                        </p>
+                        <p style="color: white;">
+                            <strong>⏱️ 10 preguntas - 8 minutos</strong><br>
+                            <span style="font-size: 0.9rem; opacity: 0.8;">Sus respuestas van directo a los técnicos que diseñan la política</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>🌟 USTEDES SON FUNDAMENTALES</h3>
+                <p>Sus respuestas se suman a las de otros <strong>500 líderes</strong><br>
+                de diferentes sectores para construir una <strong>Pereira más espiritual y participativa</strong></p>
+            </div>
+        </div>
+        <div class="slide-number">3 / 4</div>
+    </div>
+
+    <!-- Slide 5: Agradecimiento -->
+    <div class="slide final-slide">
+        <div class="slide-container">
+            <div class="final-logo">
+                <img src="./logo_pereira_participa.png" alt="Pereira Participa">
+            </div>
+            
+            <h1 class="final-title">¡GRACIAS LÍDERES RELIGIOSOS!</h1>
+            
+            <p class="final-text">
+                Por ser <strong style="color: #d88f2e;">pastores del pueblo</strong> y guías espirituales
+            </p>
+            
+            <p class="final-text">
+                Su ministerio pastoral, su sabiduría espiritual y su compromiso con la justicia social 
+                son <strong style="color: #d88f2e;">fundamentales</strong> para construir 
+                una Pereira más justa, pacífica y participativa.
+            </p>
+            
+            <div class="final-highlight">
+                <p style="font-size: 1.4rem; font-weight: bold; margin-bottom: 0.5rem;">
+                    ⛪ Construimos ciudad desde la fe
+                </p>
+                <p style="font-size: 1.1rem;">
+                    Cada congregación cuenta, cada pastor importa, cada voz es esencial
+                </p>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <p style="font-size: 1.1rem; opacity: 0.8;">
+                    <strong>Alcaldía de Pereira</strong> • <strong style="color: #d88f2e;">Pereira Participa</strong>
+                </p>
+                <p style="font-size: 0.9rem; opacity: 0.6; margin-top: 0.5rem;">
+                    Construyendo juntos la Política Pública de Participación Ciudadana
+                </p>
+            </div>
+        </div>
+        <div class="slide-number">4 / 4</div>
+    </div>
+</body>
+</html>
